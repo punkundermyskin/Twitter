@@ -18,12 +18,14 @@ class UserCell: DatasourceCell {
             nameLabel.text = user.name
             usernameLabel.text = user.username
             bioTextView.text = user.bioText
-            profileImageView.image = user.profileImage
+            
+            profileImageView.loadImage(urlString: user.profileImageUrl)
+            profileImageView.backgroundColor = .clear
         }
     }
     
-    let profileImageView: UIImageView = {
-        let imageView = UIImageView()
+    let profileImageView: CachedImageView = {
+        let imageView = CachedImageView()
         imageView.image = UIImage()
         imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = 5
@@ -53,6 +55,7 @@ class UserCell: DatasourceCell {
         textView.text = ""
         textView.font = UIFont.systemFont(ofSize: 15)
         textView.backgroundColor = .clear
+        textView.isEditable = false
         return textView
     }()
     

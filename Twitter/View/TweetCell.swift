@@ -15,6 +15,8 @@ class TweetCell: DatasourceCell {
             guard let tweet = datasourceItem as? Tweet else {
                 return
             }
+            profileImageView.backgroundColor = .clear
+            profileImageView.loadImage(urlString: tweet.user.profileImageUrl)
             
             let attributedText = NSMutableAttributedString(string: tweet.user.name, attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16)])
             
@@ -36,12 +38,13 @@ class TweetCell: DatasourceCell {
     
     let messageTextView: UITextView = {
         let tv = UITextView()
+        tv.isEditable = false
         tv.backgroundColor = .clear
         return tv
     }()
     
-    let profileImageView: UIImageView = {
-        let imageView = UIImageView()
+    let profileImageView: CachedImageView = {
+        let imageView = CachedImageView()
         imageView.image = UIImage(named: "profile_image")
         imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = 5
